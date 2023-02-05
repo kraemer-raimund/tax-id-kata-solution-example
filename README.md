@@ -13,7 +13,7 @@ A coding kata that focuses on encapsulation and domain-driven design.
 <details>
 <summary>Reveal answer</summary>
 
-An ID's main (and often only) purpose is to provide a way to check two **entities** for **identity** (from Latin: "this entity"/"this being"). Often an ID objects' only method is `equals()`, thus fulfilling its only purpose. An identity is **inherently immutable**.
+An ID's main (and often only) purpose is to provide a way to check two **entities** for **identity** (from Latin: "this entity"/"this being"). Often an ID object's only method is `equals()`, thus fulfilling its only purpose. An identity is **inherently immutable**.
 
 An entity's identity is a domain concept, and often separate from the **technical ID** that might be used e.g. by a database.
 
