@@ -3,6 +3,10 @@ package org.example.tax;
 final class TaxId {
 
     public static TaxId parse(String taxId) throws IllFormedTaxIdException {
-        throw new IllFormedTaxIdException(taxId);
+        if (taxId.isEmpty()) {
+            throw new IllFormedTaxIdException(taxId);
+        }
+
+        return null;
     }
 }
