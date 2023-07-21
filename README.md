@@ -22,7 +22,7 @@ An entity's identity is a domain concept, and often separate from the **technica
 ## Requirements
 
 - A well-formed tax ID consists of exactly 11 digits.
-- The first digit may not be 0.
+- The first digit must not be 0.
 - In the first 10 digits, one digit occurs either 2 or 3 times, but never 3 times in a row. The other digits are unique.
 - The last digit is a check digit which is calculated from the first 10 digits according to the ISO/IEC 7064, MOD 11,10 standard:
   - Start with a "product" of 10.
