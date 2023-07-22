@@ -1,5 +1,6 @@
 package org.example.tax;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -23,6 +24,14 @@ final class TaxIdTest {
         assertThatExceptionOfType(IllFormedTaxIdException.class)
                 .isThrownBy(() -> {
                     final var taxId = TaxId.parse(taxIdInput);
+                });
+    }
+
+    @Test
+    void a_well_formed_tax_ID_most_not_start_with_0() {
+        assertThatExceptionOfType(IllFormedTaxIdException.class)
+                .isThrownBy(() -> {
+                    final var taxId = TaxId.parse("01345678904");
                 });
     }
 
