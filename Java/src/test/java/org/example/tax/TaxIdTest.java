@@ -10,10 +10,18 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatNoException
 final class TaxIdTest {
 
     @Test
-    void empty_string_is_not_valid() {
+    void a_well_formed_tax_ID_cannot_be_empty() {
         assertThatExceptionOfType(IllFormedTaxIdException.class)
                 .isThrownBy(() -> {
                     final var taxId = TaxId.parse("");
+                });
+    }
+
+    @Test
+    void a_well_formed_tax_ID_must_be_exactly_11_characters_long() {
+        assertThatExceptionOfType(IllFormedTaxIdException.class)
+                .isThrownBy(() -> {
+                    final var taxId = TaxId.parse("12345");
                 });
     }
 
@@ -24,7 +32,7 @@ final class TaxIdTest {
             "12445678907",
             "12345698991"
     })
-    void is_valid(String taxIdInput) {
+    void is_well_formed(String taxIdInput) {
         assertThatNoException()
                 .isThrownBy(() -> {
                     final var taxId = TaxId.parse(taxIdInput);

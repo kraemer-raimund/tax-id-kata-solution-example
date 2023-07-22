@@ -7,6 +7,10 @@ final class TaxId {
             throw new IllFormedTaxIdException(taxId);
         }
 
+        if (taxId.length() != 11) {
+            throw new IllFormedTaxIdException(taxId);
+        }
+
         return null;
     }
 }
