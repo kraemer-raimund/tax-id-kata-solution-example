@@ -2,18 +2,18 @@ package org.example.tax;
 
 final class TaxId {
 
-    public static TaxId parse(String taxId) throws IllFormedTaxIdException {
-        if (taxId.isEmpty()) {
-            throw new IllFormedTaxIdException(taxId);
+    public static TaxId parse(String internalValue) throws IllFormedTaxIdException {
+        if (internalValue.isEmpty()) {
+            throw new IllFormedTaxIdException(internalValue);
         }
 
-        if (taxId.length() != 11) {
-            throw new IllFormedTaxIdException(taxId);
+        if (internalValue.length() != 11) {
+            throw new IllFormedTaxIdException(internalValue);
         }
 
-        for (final var character : taxId.toCharArray()) {
+        for (final var character : internalValue.toCharArray()) {
             if (!Character.isDigit(character)) {
-                throw new IllFormedTaxIdException(taxId);
+                throw new IllFormedTaxIdException(internalValue);
             }
         }
 
