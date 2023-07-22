@@ -1,3 +1,6 @@
+># ***This is an example solution.***
+> Make sure to [try solving the kata yourself first](https://github.com/kraemer-raimund/tax-id-kata) and check out the example solution afterwards. The provided solution is of course only an example of what your solution could look like.
+
 # Tax ID Kata
 
 A coding kata that focuses on encapsulation and domain-driven design.
