@@ -35,6 +35,19 @@ final class TaxIdTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
+            "",
+            "12345",
+            "abc 123 $%&"
+    })
+    void a_well_formed_tax_ID_must_contain_exactly_11_digits_and_nothing_else(String taxIdInput) {
+        assertThatExceptionOfType(IllFormedTaxIdException.class)
+                .isThrownBy(() -> {
+                    final var taxId = TaxId.parse(taxIdInput);
+                });
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
             "11345678904",
             "13345678906",
             "12445678907",
