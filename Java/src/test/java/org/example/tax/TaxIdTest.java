@@ -50,6 +50,19 @@ final class TaxIdTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
+            "11115678901",
+            "12141618901",
+            "12344644901"
+    })
+    void within_the_first_10_digits_of_a_well_formed_tax_ID_no_digit_can_occur_more_than_3_times(String taxIdInput) {
+        assertThatExceptionOfType(IllFormedTaxIdException.class)
+                .isThrownBy(() -> {
+                    final var taxId = TaxId.parse(taxIdInput);
+                });
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
             "11345678904",
             "13345678906",
             "12445678907",

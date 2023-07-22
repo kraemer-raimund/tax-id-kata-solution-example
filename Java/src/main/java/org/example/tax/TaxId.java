@@ -9,7 +9,13 @@ final class TaxId {
             throw new IllFormedTaxIdException(internalValue);
         }
 
+        final String taxIdWithoutCheckDigit = internalValue.substring(0, 10);
+
         if (!areAllButOneUnique(internalValue.substring(0, 10))) {
+            throw new IllFormedTaxIdException(internalValue);
+        }
+
+        if (maxDigitOccurrences(taxIdWithoutCheckDigit) > 3) {
             throw new IllFormedTaxIdException(internalValue);
         }
 
@@ -23,6 +29,13 @@ final class TaxId {
                 .count();
 
         return nonUniqueDigits == 1;
+    }
+
+    private static int maxDigitOccurrences(String digits) {
+        return IntStream.rangeClosed('0', '9')
+                .map(digit -> countOccurrences(digits, (char) digit))
+                .max()
+                .orElse(0);
     }
 
     private static int countOccurrences(String string, char character) {
