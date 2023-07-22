@@ -76,6 +76,21 @@ final class TaxIdTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
+            "11345678903",
+            "13345678900",
+            "12445678902",
+            "12345698999"
+    })
+        // Check digit calculated according to ISO/IEC 7064, MOD 11,10.
+    void check_digit_must_be_correct(String taxIdInput) {
+        assertThatExceptionOfType(IllFormedTaxIdException.class)
+                .isThrownBy(() -> {
+                    final var taxId = TaxId.parse(taxIdInput);
+                });
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
             "11345678904",
             "13345678906",
             "12445678907",

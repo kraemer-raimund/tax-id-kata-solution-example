@@ -23,6 +23,12 @@ final class TaxId {
             throw new IllFormedTaxIdException(internalValue);
         }
 
+        final var checkDigit = Integer.parseInt(internalValue.substring(10, 11));
+
+        if (calculateCheckDigit(taxIdWithoutCheckDigit) != checkDigit) {
+            throw new IllFormedTaxIdException(internalValue);
+        }
+
         return null;
     }
 
@@ -69,5 +75,23 @@ final class TaxId {
         return (int) string.chars()
                 .filter(c -> c == character)
                 .count();
+    }
+
+    /**
+     * @return the check digit according to ISO/IEC 7064, MOD 11,10
+     */
+    private static int calculateCheckDigit(String digits) {
+        var product = 10;
+
+        for (int i = 0; i < digits.length(); i++) {
+            int digit = Integer.parseInt(digits.substring(i, i + 1));
+            var sum = (digit + product) % 10;
+            if (sum == 0) {
+                sum = 10;
+            }
+            product = (sum * 2) % 11;
+        }
+
+        return (11 - product) % 10;
     }
 }
