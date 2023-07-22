@@ -37,6 +37,19 @@ final class TaxIdTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
+            "12335578901",
+            "12145678701",
+            "12745678101"
+    })
+    void within_the_first_10_digits_of_a_well_formed_tax_ID_all_but_one_digit_must_be_unique(String taxIdInput) {
+        assertThatExceptionOfType(IllFormedTaxIdException.class)
+                .isThrownBy(() -> {
+                    final var taxId = TaxId.parse(taxIdInput);
+                });
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
             "11345678904",
             "13345678906",
             "12445678907",
