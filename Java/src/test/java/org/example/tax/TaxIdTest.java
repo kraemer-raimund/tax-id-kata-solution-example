@@ -11,7 +11,12 @@ final class TaxIdTest {
     @ParameterizedTest
     @ValueSource(strings = {
             "",
-            "12345",
+            "1234567890",
+            "123456789012",
+            " ",
+            "1234567890_",
+            "1234%678901",
+            "1234A678901",
             "abc 123 $%&"
     })
     void a_well_formed_tax_ID_must_contain_exactly_11_digits_and_nothing_else(String taxIdInput) {
