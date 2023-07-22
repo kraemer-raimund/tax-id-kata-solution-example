@@ -19,6 +19,10 @@ final class TaxId {
             throw new IllFormedTaxIdException(internalValue);
         }
 
+        if (maxConsecutiveDigitOccurrences(taxIdWithoutCheckDigit) > 2) {
+            throw new IllFormedTaxIdException(internalValue);
+        }
+
         return null;
     }
 
@@ -36,6 +40,29 @@ final class TaxId {
                 .map(digit -> countOccurrences(digits, (char) digit))
                 .max()
                 .orElse(0);
+    }
+
+    private static int maxConsecutiveDigitOccurrences(String digits) {
+        if (digits.isEmpty()) {
+            return 0;
+        }
+
+        int maxConsecutiveDigitOccurrences = 1;
+        int currentDigitOccurrences = 1;
+        char currentDigit = digits.charAt(0);
+
+        for (int i = 1; i < digits.length(); i++) {
+            if (digits.charAt(i) == currentDigit) {
+                currentDigitOccurrences++;
+            } else {
+                maxConsecutiveDigitOccurrences = Math.max(
+                        currentDigitOccurrences, maxConsecutiveDigitOccurrences);
+                currentDigit = digits.charAt(i);
+                currentDigitOccurrences = 1;
+            }
+        }
+
+        return maxConsecutiveDigitOccurrences;
     }
 
     private static int countOccurrences(String string, char character) {
