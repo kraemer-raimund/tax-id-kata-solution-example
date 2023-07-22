@@ -5,27 +5,11 @@ import java.util.stream.IntStream;
 final class TaxId {
 
     public static TaxId parse(String internalValue) throws IllFormedTaxIdException {
-        if (!internalValue.matches("[1-9][0-9]{10}")) {
-            throw new IllFormedTaxIdException(internalValue);
-        }
-
-        final String taxIdWithoutCheckDigit = internalValue.substring(0, 10);
-
-        if (!areAllButOneUnique(internalValue.substring(0, 10))) {
-            throw new IllFormedTaxIdException(internalValue);
-        }
-
-        if (maxDigitOccurrences(taxIdWithoutCheckDigit) > 3) {
-            throw new IllFormedTaxIdException(internalValue);
-        }
-
-        if (maxConsecutiveDigitOccurrences(taxIdWithoutCheckDigit) > 2) {
-            throw new IllFormedTaxIdException(internalValue);
-        }
-
-        final var checkDigit = Integer.parseInt(internalValue.substring(10, 11));
-
-        if (calculateCheckDigit(taxIdWithoutCheckDigit) != checkDigit) {
+        if (!internalValue.matches("[1-9][0-9]{10}")
+                || !areAllButOneUnique(internalValue.substring(0, 10))
+                || maxDigitOccurrences(internalValue.substring(0, 10)) > 3
+                || maxConsecutiveDigitOccurrences(internalValue.substring(0, 10)) > 2
+                || !isCheckDigitCorrect(internalValue)) {
             throw new IllFormedTaxIdException(internalValue);
         }
 
@@ -75,6 +59,11 @@ final class TaxId {
         return (int) string.chars()
                 .filter(c -> c == character)
                 .count();
+    }
+
+    private static boolean isCheckDigitCorrect(String taxId) {
+        final var checkDigit = Integer.parseInt(taxId.substring(10, 11));
+        return checkDigit == calculateCheckDigit(taxId.substring(0, 10));
     }
 
     /**
