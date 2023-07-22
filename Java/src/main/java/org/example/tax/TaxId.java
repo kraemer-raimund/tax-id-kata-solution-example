@@ -11,6 +11,12 @@ final class TaxId {
             throw new IllFormedTaxIdException(taxId);
         }
 
+        for (final var character : taxId.toCharArray()) {
+            if (!Character.isDigit(character)) {
+                throw new IllFormedTaxIdException(taxId);
+            }
+        }
+
         return null;
     }
 }

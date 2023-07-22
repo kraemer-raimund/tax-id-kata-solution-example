@@ -25,6 +25,14 @@ final class TaxIdTest {
                 });
     }
 
+    @Test
+    void a_well_formed_tax_ID_can_only_contain_digits() {
+        assertThatExceptionOfType(IllFormedTaxIdException.class)
+                .isThrownBy(() -> {
+                    final var taxId = TaxId.parse("abc 123 $%&");
+                });
+    }
+
     @ParameterizedTest
     @ValueSource(strings = {
             "11345678904",
